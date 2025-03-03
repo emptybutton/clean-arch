@@ -5,6 +5,7 @@ Revises:
 Create Date: 2025-03-03 11:02:01.231021
 
 """
+
 from collections.abc import Sequence
 
 import sqlalchemy as sa
@@ -23,7 +24,7 @@ def upgrade() -> None:
         "users",
         sa.Column("id", sa.Uuid(), nullable=False),
         sa.Column("name", sa.VARCHAR(), nullable=False),
-        sa.PrimaryKeyConstraint("id")
+        sa.PrimaryKeyConstraint("id"),
     )
     # ### end Alembic commands ###
 

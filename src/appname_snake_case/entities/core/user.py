@@ -1,4 +1,3 @@
-
 from dataclasses import dataclass
 from typing import TypeGuard
 from uuid import UUID, uuid4

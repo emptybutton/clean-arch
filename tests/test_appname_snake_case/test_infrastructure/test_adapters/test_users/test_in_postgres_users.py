@@ -33,15 +33,12 @@ async def users(postgres_connection: AsyncConnection) -> InPostgresUsers:
 
 
 async def test_no_users_add(
-    postgres_connection: AsyncConnection,
-    no_users: InPostgresUsers,
-    user1: User
+    postgres_connection: AsyncConnection, no_users: InPostgresUsers, user1: User
 ) -> None:
     await no_users.add(user1)
 
     stmt = select(
-        exists(user_table)
-        .where(
+        exists(user_table).where(
             user_table.c.id == user1.id,
             user_table.c.name == user1.name,
         )
@@ -53,20 +50,18 @@ async def test_users_add(
     postgres_connection: AsyncConnection,
     users: InPostgresUsers,
     user1: User,
-    user2: User
+    user2: User,
 ) -> None:
     await users.add(user2)
 
     user2_stmt = select(
-        exists(user_table)
-        .where(
+        exists(user_table).where(
             user_table.c.id == user2.id,
             user_table.c.name == user2.name,
         )
     )
     user1_stmt = select(
-        exists(user_table)
-        .where(
+        exists(user_table).where(
             user_table.c.id == user1.id,
             user_table.c.name == user1.name,
         )

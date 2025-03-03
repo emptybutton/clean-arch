@@ -19,7 +19,7 @@ def postgres_engine(envs: TestsEnvs) -> AsyncEngine:
 
 @fixture(scope="session")
 async def _session_postgres_connection(
-    postgres_engine: AsyncEngine
+    postgres_engine: AsyncEngine,
 ) -> AsyncIterable[AsyncConnection]:
     async with postgres_engine.connect() as connection:
         yield connection
@@ -27,7 +27,7 @@ async def _session_postgres_connection(
 
 @fixture()
 async def postgres_connection(
-    _session_postgres_connection: AsyncConnection
+    _session_postgres_connection: AsyncConnection,
 ) -> AsyncConnection:
     await _clear_db(_session_postgres_connection)
     return _session_postgres_connection
