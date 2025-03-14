@@ -15,7 +15,7 @@ docker compose -f appname_kebab_case/deployments/dev/docker-compose.yaml up
 
 Для ide можно сделать отдельное виртуальное окружение в папке проекта:
 ```bash
-uv sync --extra dev --directory test-cash-register
+uv sync --extra dev --directory appname_snake_case
 ```
 
 > [!NOTE]
