@@ -45,9 +45,7 @@ class CookieAnnotationKeeperType(type):
         ]  # type: ignore[assignment]
         type_.StrWithLock = Annotated[str, Depends(api_key_with_auto_error)]  # type: ignore[assignment]
 
-        type_.StrOrNone = Annotated[
-            str | None, FastAPICookie(alias=key, default=None)
-        ]  # type: ignore[assignment]
+        type_.StrOrNone = Annotated[str | None, FastAPICookie(alias=key)]  # type: ignore[assignment]
         type_.Str = Annotated[str, FastAPICookie(alias=key)]  # type: ignore[assignment]
 
         type_.key = key

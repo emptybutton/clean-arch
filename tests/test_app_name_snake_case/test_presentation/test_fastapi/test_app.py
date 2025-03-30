@@ -1,15 +1,16 @@
 from dataclasses import dataclass
 
-from app_name_snake_case.presentation.fastapi.app import (
-    FastAPIAppCoroutines,
-    FastAPIAppRouters,
-    app_from,
-)
 from dishka import Provider, Scope, make_async_container
 from dishka.integrations.fastapi import FromDishka, inject
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse, Response
 from httpx import ASGITransport, AsyncClient
+
+from app_name_snake_case.presentation.fastapi.app import (
+    FastAPIAppCoroutines,
+    FastAPIAppRouters,
+    app_from,
+)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

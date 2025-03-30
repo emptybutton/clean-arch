@@ -1,7 +1,5 @@
 from collections.abc import AsyncIterable
 
-from app_name_snake_case.infrastructure.sqlalchemy.tables import metadata
-from app_name_snake_case.infrastructure.typenv.envs import Envs
 from pytest import fixture
 from sqlalchemy import NullPool, delete
 from sqlalchemy.ext.asyncio import (
@@ -9,6 +7,9 @@ from sqlalchemy.ext.asyncio import (
     AsyncSession,
     create_async_engine,
 )
+
+from app_name_snake_case.infrastructure.sqlalchemy.tables import metadata
+from app_name_snake_case.infrastructure.typenv.envs import Envs
 
 
 @fixture(scope="session")

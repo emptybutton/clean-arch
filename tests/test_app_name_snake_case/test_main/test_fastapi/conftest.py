@@ -1,14 +1,15 @@
 from collections.abc import AsyncIterator
 
-from app_name_snake_case.infrastructure.sqlalchemy.tables import metadata
-from app_name_snake_case.main.fastapi.di import container
-from app_name_snake_case.presentation.fastapi.app import app_from
 from fastapi import FastAPI
 from httpx import AsyncClient
 from httpx_ws.transport import ASGIWebSocketTransport
 from pytest import fixture
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql import text
+
+from app_name_snake_case.infrastructure.sqlalchemy.tables import metadata
+from app_name_snake_case.main.fastapi.di import container
+from app_name_snake_case.presentation.fastapi.app import app_from
 
 
 @fixture

@@ -54,7 +54,7 @@ async def app_from(container: AsyncContainer) -> FastAPI:
     app = _FastAPIWithAdditionalModels(
         title="app-name-kebab-case",
         version=version,
-        summary="app_name_description",
+        summary="app_name_description.",
         openapi_tags=tags_metadata,
         contact={"name": "Alexander Smolin", "url": author_url},
         license_info={

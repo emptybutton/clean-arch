@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from app_name_snake_case.application.ports.transaction import Transaction
 from app_name_snake_case.application.ports.user_id_signing import UserIDSigning
 from app_name_snake_case.application.ports.user_views import UserViews
 
@@ -8,6 +9,7 @@ from app_name_snake_case.application.ports.user_views import UserViews
 class ViewUser[SignedUserIDT, UserViewT, UserViewWithIDT]:
     user_id_signing: UserIDSigning[SignedUserIDT]
     user_views: UserViews[UserViewT, UserViewWithIDT]
+    transaction: Transaction
 
     async def __call__(
         self, signed_user_id: SignedUserIDT | None
@@ -19,4 +21,5 @@ class ViewUser[SignedUserIDT, UserViewT, UserViewWithIDT]:
                 signed_user_id=signed_user_id
             )
 
-        return await self.user_views.view_of_user_with_id(user_id)
+        async with self.transaction:
+            return await self.user_views.view_of_user_with_id(user_id)

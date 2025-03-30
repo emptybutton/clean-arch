@@ -27,7 +27,7 @@ class UserSchemasFromPostgres(UserViews[UserSchema, UserSchema | None]):
             return None
 
         user_name: str | None = await self.session.scalar(
-            select(user_table.c.name).where(user_table.c.name)
+            select(user_table.c.name).where(user_table.c.id == user_id)
         )
         if user_name is None:
             return None

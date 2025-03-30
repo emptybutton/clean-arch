@@ -21,7 +21,7 @@ class RegisterUserSchema(BaseModel):
     "/user",
     responses={
         status.HTTP_200_OK: {"model": UserSchema},
-        status.HTTP_204_NO_CONTENT: {"model": NoDataSchema},
+        status.HTTP_204_NO_CONTENT: {},
     },
     summary="View user",
     description="View current user.",
@@ -34,6 +34,8 @@ async def view_user_route(
 ) -> Response:
     view = await view_user(signed_user_id=signed_user_id)
 
-    response_model = NoDataSchema() if view is None else view
-    response_body = response_model.model_dump(mode="json", by_alias=True)
+    if view is None:
+        return Response(b"", status_code=status.HTTP_204_NO_CONTENT)
+
+    response_body = view.model_dump(mode="json", by_alias=True)
     return JSONResponse(response_body)

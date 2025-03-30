@@ -58,7 +58,7 @@ class CommonProvider(Provider):
     @provide(scope=Scope.APP)
     def provide_user_id_signing(
         self, envs: Envs
-    ) -> UserIDSigning[str]:
+    ) -> AnyOf[UserIDSigningToHS256JWT, UserIDSigning[JWT]]:
         return UserIDSigningToHS256JWT(secret=envs.jwt_secret)
 
     @provide(scope=Scope.REQUEST)

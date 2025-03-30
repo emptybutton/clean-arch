@@ -1,10 +1,11 @@
-from app_name_snake_case.presentation.fastapi.routers import all_routers
 from dishka import AsyncContainer
 from dishka.integrations.fastapi import setup_dishka
 from fastapi import APIRouter, FastAPI
 from httpx import AsyncClient
 from httpx_ws.transport import ASGIWebSocketTransport
 from pytest import fixture
+
+from app_name_snake_case.presentation.fastapi.routers import all_routers
 
 
 @fixture

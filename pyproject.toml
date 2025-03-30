@@ -42,7 +42,7 @@ build-backend = "hatchling.build"
 packages = ["src/app_name_snake_case"]
 
 [project.scripts]
-app-name-kebab-case-fastapi-dev = "app_name_snake_case.entrypoint.web_service.__main__:main"
+app-name-kebab-case-fastapi-dev = "app_name_snake_case.main.fastapi.__main__:main"
 
 [tool.mypy]
 mypy_path = "$MYPY_CONFIG_FILE_DIR/src:$MYPY_CONFIG_FILE_DIR/tests"

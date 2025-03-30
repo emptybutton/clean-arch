@@ -4,7 +4,7 @@ WORKDIR /app
 
 ENV UV_LINK_MODE copy
 ENV UV_PROJECT_ENVIRONMENT /run/app/.venv
-ENV UV_CACHE_DIR copy /run/app/uv
+ENV UV_CACHE_DIR /run/app/uv
 
 ENV PYTHONPATH /app/src:/app/tests
 ENV WATCHFILES_FORCE_POLLING true

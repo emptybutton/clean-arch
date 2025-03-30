@@ -1,6 +1,7 @@
-from app_name_snake_case.infrastructure.typenv.envs import Envs
 from pytest import Item, fixture, mark
 from pytest_asyncio import is_async_test
+
+from app_name_snake_case.infrastructure.typenv.envs import Envs
 
 
 @fixture(scope="session")
