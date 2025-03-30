@@ -39,12 +39,13 @@ wheels = [
 ]
 
 [[package]]
-name = "appname-kebab-case"
+name = "app-name-kebab-case"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "alembic" },
     { name = "dishka" },
+    { name = "effectt" },
     { name = "fastapi" },
     { name = "psycopg", extra = ["binary"] },
     { name = "pyjwt" },
@@ -70,6 +71,7 @@ requires-dist = [
     { name = "alembic", specifier = "==1.14.1" },
     { name = "dirty-equals", marker = "extra == 'dev'", specifier = "==0.8.0" },
     { name = "dishka", specifier = "==1.4.2" },
+    { name = "effectt", specifier = "==0.2.0" },
     { name = "fastapi", specifier = "==0.115.2" },
     { name = "httpx", marker = "extra == 'dev'", specifier = "==0.27.2" },
     { name = "httpx-ws", marker = "extra == 'dev'", specifier = "==0.7.0" },
@@ -161,6 +163,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/1e/a8/e78e0d08e9a2e7839d2742527600eb6f55313c6df07774a26848aa6a87b0/dishka-1.4.2.tar.gz", hash = "sha256:fe1e7b2d0df4306b39650cf4c05485aa79ce1fc31507d1f73300dec3c64b2397", size = 57511 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8b/30/403cbe18d8dda6ce1d95ecd1039e5b01fd39011dd6bf31647e9b61bd5758/dishka-1.4.2-py3-none-any.whl", hash = "sha256:5a59c6bf5ac9f34b3e698093207ddb871c13a0721eeb3948eb29011aee61f69c", size = 79798 },
+]
+
+[[package]]
+name = "effectt"
+version = "0.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/36/3d/2a135db10f1aed545f4b79d5f130e4776db842f13ac3068f9f79852af5b1/effectt-0.2.0.tar.gz", hash = "sha256:73c57d738187caa744b9bacd22aa4763148fd6397dec41ed849dee7566f66f06", size = 22425 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a2/71/cfa336380f6d478926f982a935b505071e5e8c054b16d93382ee6e594256/effectt-0.2.0-py3-none-any.whl", hash = "sha256:7197af81e2e78dec52d7a0ef6a9e9a11f9418b5387417bb29d451b8cd5ead8da", size = 13960 },
 ]
 
 [[package]]

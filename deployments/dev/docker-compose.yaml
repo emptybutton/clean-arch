@@ -1,4 +1,4 @@
-name: appname_kebab_case
+name: app-name-kebab-case
 
 services:
   backend:
@@ -6,8 +6,8 @@ services:
       context: ../../
       dockerfile: deployments/dev/backend/Dockerfile
       tags:
-        - "appname_kebab_case-backend:dev"
-    container_name: appname_kebab_case-backend
+        - "app-name-kebab-case-backend:dev"
+    container_name: app-name-kebab-case-backend
     volumes:
       - ../..:/app
       - backend-data:/run/app
@@ -19,16 +19,11 @@ services:
     environment:
       JWT_SECRET: super-secret-jwt-secret
       POSTGRES_URL: postgresql+psycopg://root:root@postgres/root
-    command: appname_kebab_case-web-service
-    healthcheck:
-      test: wget backend:8000/healthcheck -q -O /dev/null
-      start_period: 1m
-      start_interval: 1s
-      interval: 5s
+    command: app-name-kebab-case-fastapi-dev
 
   postgres:
     image: postgres:16.3-alpine3.19
-    container_name: appname_kebab_case-postgres
+    container_name: app-name-kebab-case-postgres
     labels:
       deployment: dev
     volumes:
