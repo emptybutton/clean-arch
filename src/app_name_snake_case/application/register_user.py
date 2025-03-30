@@ -13,7 +13,6 @@ from app_name_snake_case.application.ports.user_id_signing import (
 from app_name_snake_case.application.ports.user_views import UserViews
 from app_name_snake_case.application.ports.users import Users
 from app_name_snake_case.entities.core.user import (
-    RegisteredUserForRegisteredUserError,
     registered_user_when,
 )
 
@@ -24,12 +23,14 @@ class Output[SignedUserIDT, UserViewT]:
     user_view: UserViewT
 
 
+class RegisteredUserToRegisterUserError(Exception): ...
+
+
+class TakenUserNameToRegisterUserError(Exception): ...
+
+
 @dataclass(kw_only=True, frozen=True, slots=True)
 class RegisterUser[SignedUserIDT, UserViewT, UserViewWithIDT]:
-    """
-    :raises app_name_snake_case.entities.user.RegisteredUserForRegisteredUserError:
-    """  # noqa: E501
-
     user_id_signing: UserIDSigning[SignedUserIDT]
     users: Users
     map: Map
@@ -39,27 +40,26 @@ class RegisterUser[SignedUserIDT, UserViewT, UserViewWithIDT]:
     async def __call__(
         self, signed_user_id: SignedUserIDT | None, user_name: str
     ) -> Output[SignedUserIDT, UserViewT]:
-        if signed_user_id is None:
-            user_id = None
-        else:
+        """
+        :raises app_name_snake_case.application.register_user.RegisteredUserToRegisterUserError:
+        :raises app_name_snake_case.application.register_user.TakenUserNameToRegisterUserError:
+        """  # noqa: E501
+
+        if signed_user_id is not None:
             user_id = await self.user_id_signing.user_id_when(
                 signed_user_id=signed_user_id
             )
 
+            if user_id is not None:
+                raise RegisteredUserToRegisterUserError
+
+        registered_user = registered_user_when(user_name=user_name)
+
         async with self.transaction:
-            if user_id is None:
-                user = None
-            else:
-                user = await self.users.user_with_id(user_id)
-
-            registered_user = registered_user_when(
-                user=user, user_name=user_name
-            )
-
             try:
                 await self.map(registered_user)
             except NotUniqueUserNameError as error:
-                raise RegisteredUserForRegisteredUserError from error
+                raise TakenUserNameToRegisterUserError from error
 
             view = await self.user_views.view_of_user(just(registered_user))
 

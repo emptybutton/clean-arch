@@ -36,12 +36,13 @@ class MapToPostgres(Map):
             await self.session.flush()
         except IntegrityError as error:
             self._handle_integrity_error(error)
-            raise error from error
 
     def _handle_integrity_error(self, error: IntegrityError) -> None:
-        if isinstance(error.orig, UniqueViolation):
-            table_name = error.orig.diag.table_name
-            column_name = error.orig.diag.column_name
+        match error.orig:
+            case UniqueViolation() as unique_error:
+                constraint_name = unique_error.diag.constraint_name
 
-            if table_name == "user_table" and column_name == "name":
-                raise NotUniqueUserNameError from error
+                if constraint_name == "users_name_unique":
+                    raise NotUniqueUserNameError from error
+            case _:
+                raise error from error

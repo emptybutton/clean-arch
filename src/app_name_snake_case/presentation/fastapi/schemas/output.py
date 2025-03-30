@@ -11,3 +11,7 @@ class UserSchema(BaseModel):
 
 class AlreadyRegisteredUserSchema(ErrorSchema):
     type: Literal["alreadyRegisteredUser"] = "alreadyRegisteredUser"
+
+
+class AlreadyTakenUserNameSchema(ErrorSchema):
+    type: Literal["alreadyTakenUserName"] = "alreadyTakenUserName"
