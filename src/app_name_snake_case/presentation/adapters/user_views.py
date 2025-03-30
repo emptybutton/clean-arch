@@ -15,10 +15,7 @@ class UserSchemasFromPostgres(UserViews[UserSchema, UserSchema | None]):
     session: AsyncSession
 
     async def view_of_user(self, user: User, /) -> UserSchema:
-        return UserSchema(
-            id=user.id,
-            name=user.name,
-        )
+        return UserSchema(name=user.name)
 
     async def view_of_user_with_id(
         self, user_id: UUID | None, /
@@ -32,4 +29,4 @@ class UserSchemasFromPostgres(UserViews[UserSchema, UserSchema | None]):
         if user_name is None:
             return None
 
-        return UserSchema(id=user_id, name=user_name)
+        return UserSchema(name=user_name)
