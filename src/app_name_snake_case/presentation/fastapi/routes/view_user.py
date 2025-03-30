@@ -5,7 +5,6 @@ from pydantic import BaseModel, Field
 
 from app_name_snake_case.application.view_user import ViewUser
 from app_name_snake_case.presentation.fastapi.cookies import UserIDCookie
-from app_name_snake_case.presentation.fastapi.schemas.common import NoDataSchema
 from app_name_snake_case.presentation.fastapi.schemas.output import UserSchema
 from app_name_snake_case.presentation.fastapi.tags import Tag
 
