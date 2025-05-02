@@ -9,9 +9,9 @@ healthcheck_router = APIRouter()
 
 @healthcheck_router.get(
     "/health",
-    responses={status.HTTP_204_NO_DATA: {}},
+    responses={status.HTTP_204_NO_CONTENT: {}},
     description="Checking if the server can accept requests.",
     tags=[Tag.monitoring],
 )
 def healthcheck() -> Response:
-    return Response(status_code=status.HTTP_204_NO_DATA)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

@@ -8,7 +8,7 @@ async def test_ok(client: AsyncClient, stage: str) -> None:
     response = await client.get("/health")
 
     if stage == "status_code":
-        assert response.status_code == status.HTTP_204_NO_DATA
+        assert response.status_code == status.HTTP_204_NO_CONTENT
 
     if stage == "body":
         assert response.content == bytes()
