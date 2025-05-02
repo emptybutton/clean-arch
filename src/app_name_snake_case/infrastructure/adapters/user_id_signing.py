@@ -7,15 +7,15 @@ import jwt as pyjwt
 from app_name_snake_case.application.ports.user_id_signing import (
     UserIDSigning,
 )
-from app_name_snake_case.infrastructure.app_name_snake_case.alias import JWT
+from app_name_snake_case.infrastructure.alias import JWT
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class UserIDSigningAsIdentification(UserIDSigning[UUID | None]):
-    async def signed_user_id_when(self, *, user_id: UUID) -> UUID:
+    async def signed_user_id(self, user_id: UUID) -> UUID:
         return user_id
 
-    async def user_id_when(self, *, signed_user_id: UUID | None) -> UUID | None:
+    async def user_id_when(self, signed_user_id: UUID | None) -> UUID | None:
         return signed_user_id
 
 
@@ -23,12 +23,10 @@ class UserIDSigningAsIdentification(UserIDSigning[UUID | None]):
 class UserIDSigningToHS256JWT(UserIDSigning[JWT]):
     secret: str = field(repr=False)
 
-    async def signed_user_id_when(self, *, user_id: UUID) -> JWT:
+    async def signed_user_id(self, user_id: UUID) -> JWT:
         return pyjwt.encode({"id": user_id.hex}, self.secret, algorithm="HS256")
 
-    async def user_id_when(self, *, signed_user_id: JWT) -> UUID | None:
-        jwt = signed_user_id
-
+    async def user_id(self, jwt: JWT) -> UUID | None:
         try:
             user_data: dict[str, Any]
             user_data = pyjwt.decode(jwt, self.secret, algorithms="HS256")

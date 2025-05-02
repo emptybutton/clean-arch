@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app_name_snake_case.application.ports.users import Users
 from app_name_snake_case.entities.core.user import User
-from app_name_snake_case.infrastructure.app_name_snake_case.in_memory_storage import (  # noqa: E501
+from app_name_snake_case.infrastructure.in_memory_storage import (
     TransactionalInMemoryStorage,
 )
 from app_name_snake_case.infrastructure.sqlalchemy import orm  # noqa: F401

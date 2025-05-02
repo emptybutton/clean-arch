@@ -9,5 +9,5 @@ class User(IdentifiedValue[UUID]):
     name: str
 
 
-def registered_user_when(*, user_name: str) -> New[User]:
+def registered_user(user_name: str) -> New[User]:
     return new(User(id=uuid4(), name=user_name))

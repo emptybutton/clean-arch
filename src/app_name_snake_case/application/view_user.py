@@ -17,9 +17,7 @@ class ViewUser[SignedUserIDT, UserViewT, UserViewWithIDT]:
         if signed_user_id is None:
             user_id = None
         else:
-            user_id = await self.user_id_signing.user_id_when(
-                signed_user_id=signed_user_id
-            )
+            user_id = await self.user_id_signing.user_id(signed_user_id)
 
         async with self.transaction:
             return await self.user_views.view_of_user_with_id(user_id)

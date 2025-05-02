@@ -19,5 +19,5 @@ class Map(ABC):
         /,
     ) -> None:
         """
-        :raises iam.application.ports.map.NotUniqueUserNameError:
-        """
+        :raises app_name_snake_case.application.ports.map.NotUniqueUserNameError:
+        """  # noqa: E501

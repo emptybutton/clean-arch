@@ -10,7 +10,7 @@ class NotUTCTimeError(Exception): ...
 @dataclass(kw_only=True, frozen=True)
 class Time:
     """
-    :raises iam.entities.time.time.NotUTCTimeError:
+    :raises app_name_snake_case.entities.time.time.NotUTCTimeError:
     """
 
     datetime: datetime_cls

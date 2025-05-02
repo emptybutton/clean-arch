@@ -4,21 +4,19 @@ from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app_name_snake_case.infrastructure.app_name_snake_case.in_memory_storage import (  # noqa: E501
+from app_name_snake_case.infrastructure.in_memory_storage import (
     TransactionalInMemoryStorage,
 )
 
 
 @asynccontextmanager
-async def in_postgres_transaction_when(
-    *, session: AsyncSession
-) -> AsyncIterator[None]:
+async def in_postgres_transaction(session: AsyncSession) -> AsyncIterator[None]:
     async with session.begin():
         yield
 
 
 @asynccontextmanager
-async def in_memory_transaction_for(
+async def in_memory_transaction(
     storages: Sequence[TransactionalInMemoryStorage[Any]]
 ) -> AsyncIterator[None]:
     for storage in storages:

@@ -13,6 +13,6 @@ tags_metadata = [
     },
     {
         "name": Tag.monitoring.value,
-        "description": "Endpoints for monitoring.",
+        "description": "Monitoring endpoints.",
     },
 ]

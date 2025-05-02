@@ -13,7 +13,7 @@ from app_name_snake_case.application.ports.user_id_signing import (
 from app_name_snake_case.application.ports.user_views import UserViews
 from app_name_snake_case.application.ports.users import Users
 from app_name_snake_case.entities.core.user import (
-    registered_user_when,
+    registered_user,
 )
 
 
@@ -46,24 +46,22 @@ class RegisterUser[SignedUserIDT, UserViewT, UserViewWithIDT]:
         """  # noqa: E501
 
         if signed_user_id is not None:
-            user_id = await self.user_id_signing.user_id_when(
-                signed_user_id=signed_user_id
-            )
+            user_id = await self.user_id_signing.user_id(signed_user_id)
 
             if user_id is not None:
                 raise RegisteredUserToRegisterUserError
 
-        registered_user = registered_user_when(user_name=user_name)
+        registered_user_ = registered_user(user_name=user_name)
 
         async with self.transaction:
             try:
-                await self.map(registered_user)
+                await self.map(registered_user_)
             except NotUniqueUserNameError as error:
                 raise TakenUserNameToRegisterUserError from error
 
-            view = await self.user_views.view_of_user(just(registered_user))
+            view = await self.user_views.view_of_user(just(registered_user_))
 
-        signed_user_id = await self.user_id_signing.signed_user_id_when(
-            user_id=just(registered_user).id
+        signed_user_id = await self.user_id_signing.signed_user_id(
+            just(registered_user_).id
         )
         return Output(signed_user_id=signed_user_id, user_view=view)

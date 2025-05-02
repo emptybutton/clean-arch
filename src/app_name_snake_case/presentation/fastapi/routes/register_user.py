@@ -11,10 +11,6 @@ from app_name_snake_case.application.register_user import (
 from app_name_snake_case.presentation.fastapi.cookies import (
     UserIDCookie,
 )
-from app_name_snake_case.presentation.fastapi.schemas.common import (
-    ErrorListSchema,
-    NoDataSchema,
-)
 from app_name_snake_case.presentation.fastapi.schemas.output import (
     AlreadyRegisteredUserSchema,
     AlreadyTakenUserNameSchema,
@@ -33,12 +29,9 @@ class RegisterUserSchema(BaseModel):
 @register_user_router.post(
     "/user",
     responses={
-        status.HTTP_201_CREATED: {"model": NoDataSchema},
+        status.HTTP_201_CREATED: {"model": BaseModel},
         status.HTTP_409_CONFLICT: {
-            "model": (
-                ErrorListSchema[AlreadyRegisteredUserSchema]
-                | ErrorListSchema[AlreadyTakenUserNameSchema]
-            )
+            "model": AlreadyRegisteredUserSchema | AlreadyTakenUserNameSchema
         },
     },
     summary="Register user",
@@ -57,16 +50,12 @@ async def register_user_route(
         )
     except RegisteredUserToRegisterUserError:
         response_body = (
-            AlreadyRegisteredUserSchema()
-            .to_list()
-            .model_dump(mode="json", by_alias=True)
+            AlreadyRegisteredUserSchema().model_dump(mode="json", by_alias=True)
         )
         return JSONResponse(response_body, status_code=status.HTTP_409_CONFLICT)
     except TakenUserNameToRegisterUserError:
         response_body = (
-            AlreadyTakenUserNameSchema()
-            .to_list()
-            .model_dump(mode="json", by_alias=True)
+            AlreadyTakenUserNameSchema().model_dump(mode="json", by_alias=True)
         )
         return JSONResponse(response_body, status_code=status.HTTP_409_CONFLICT)
 

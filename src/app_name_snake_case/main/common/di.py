@@ -20,13 +20,13 @@ from app_name_snake_case.application.view_user import ViewUser
 from app_name_snake_case.infrastructure.adapters.clock import LocalHostClock
 from app_name_snake_case.infrastructure.adapters.map import MapToPostgres
 from app_name_snake_case.infrastructure.adapters.transaction import (
-    in_postgres_transaction_when,
+    in_postgres_transaction,
 )
 from app_name_snake_case.infrastructure.adapters.user_id_signing import (
     UserIDSigningToHS256JWT,
 )
 from app_name_snake_case.infrastructure.adapters.users import InPostgresUsers
-from app_name_snake_case.infrastructure.app_name_snake_case.alias import JWT
+from app_name_snake_case.infrastructure.alias import JWT
 from app_name_snake_case.infrastructure.typenv.envs import Envs
 from app_name_snake_case.presentation.adapters.user_views import (
     UserSchemasFromPostgres,
@@ -83,7 +83,7 @@ class CommonProvider(Provider):
     def provide_transaction(
         self, session: AsyncSession
     ) -> Transaction:
-        return in_postgres_transaction_when(session=session)
+        return in_postgres_transaction(session=session)
 
     provide_user_views = provide(
         UserSchemasFromPostgres,
