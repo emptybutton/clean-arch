@@ -19,6 +19,7 @@ dependencies = [
     "sqlalchemy==2.0.38",
     "psycopg[binary]==3.2.5",
     "alembic==1.14.1",
+    "in-memory-db==0.2.0",
 ]
 
 [project.optional-dependencies]

@@ -1,23 +1,23 @@
 from dataclasses import dataclass
 from uuid import UUID
 
+from in_memory_db import InMemoryDb
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app_name_snake_case.application.ports.users import Users
 from app_name_snake_case.entities.core.user import User
-from app_name_snake_case.infrastructure.in_memory_storage import (
-    TransactionalInMemoryStorage,
-)
 from app_name_snake_case.infrastructure.sqlalchemy import orm  # noqa: F401
 
 
-@dataclass(kw_only=True, slots=True)
-class InMemoryUsers(Users, TransactionalInMemoryStorage[User]):
+@dataclass(frozen=True)
+class InMemoryUsers(Users):
+    db: InMemoryDb
+
     async def user_with_id(self, id: UUID) -> User | None:
-        return self.select_one(lambda user: user.id == id)
+        return self.db.subset(User).select_one(lambda user: user.id == id)
 
 
-@dataclass(kw_only=True, frozen=True, slots=True)
+@dataclass(frozen=True)
 class InPostgresUsers(Users):
     session: AsyncSession
 
