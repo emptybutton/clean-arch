@@ -9,6 +9,7 @@ from httpx import ASGITransport, AsyncClient
 from app_name_snake_case.presentation.fastapi.app import (
     FastAPIAppCoroutines,
     FastAPIAppRouters,
+    FastAPIAppVersion,
     app_from,
 )
 
@@ -30,8 +31,15 @@ async def endpoint(x: FromDishka[X]) -> Response:
 async def test_app_from() -> None:
     provider = Provider(scope=Scope.APP)
     provider.provide(lambda: X(x=4), provides=X)
-    provider.provide(lambda: [router], provides=FastAPIAppRouters)
-    provider.provide(list, provides=FastAPIAppCoroutines)
+    provider.provide(
+        lambda: FastAPIAppRouters((router, )), provides=FastAPIAppRouters,
+    )
+    provider.provide(
+        lambda: FastAPIAppCoroutines(tuple()), provides=FastAPIAppCoroutines,
+    )
+    provider.provide(
+        lambda: FastAPIAppVersion("0.0.0"), provides=FastAPIAppVersion,
+    )
     container = make_async_container(provider)
 
     app = await app_from(container)
