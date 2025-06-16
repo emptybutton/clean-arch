@@ -9,5 +9,5 @@ class UserIDSigning[SignedUserIDT](ABC):
 
     @abstractmethod
     async def user_id(
-        self, signed_user_id: SignedUserIDT, /
+        self, signed_user_id: SignedUserIDT, /,
     ) -> UUID | None: ...

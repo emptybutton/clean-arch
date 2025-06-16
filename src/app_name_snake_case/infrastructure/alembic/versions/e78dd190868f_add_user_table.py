@@ -1,4 +1,5 @@
-"""add user table
+"""
+add user table.
 
 Revision ID: e78dd190868f
 Revises:
@@ -24,7 +25,7 @@ def upgrade() -> None:
     sa.Column("name", sa.String(), nullable=False),
     sa.PrimaryKeyConstraint("id"),
     sa.UniqueConstraint("name"),
-    sa.UniqueConstraint("name", name="users_name_unique")
+    sa.UniqueConstraint("name", name="users_name_unique"),
     )
     # ### end Alembic commands ###
 

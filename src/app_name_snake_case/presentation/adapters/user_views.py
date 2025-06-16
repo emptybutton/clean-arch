@@ -18,13 +18,13 @@ class UserSchemasFromPostgres(UserViews[UserSchema, UserSchema | None]):
         return UserSchema(name=user.name)
 
     async def view_of_user_with_id(
-        self, user_id: UUID | None, /
+        self, user_id: UUID | None, /,
     ) -> UserSchema | None:
         if user_id is None:
             return None
 
         user_name: str | None = await self.session.scalar(
-            select(user_table.c.name).where(user_table.c.id == user_id)
+            select(user_table.c.name).where(user_table.c.id == user_id),
         )
         if user_name is None:
             return None

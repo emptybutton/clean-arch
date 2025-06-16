@@ -12,8 +12,8 @@ async def in_postgres_transaction(session: AsyncSession) -> AsyncIterator[None]:
 
 
 @asynccontextmanager
-async def in_memory_transaction(
-    dbs: Sequence[InMemoryDb]
+async def in_memory_transaction(  # noqa: RUF029
+    dbs: Sequence[InMemoryDb],
 ) -> AsyncIterator[None]:
     for db in dbs:
         db.begin()

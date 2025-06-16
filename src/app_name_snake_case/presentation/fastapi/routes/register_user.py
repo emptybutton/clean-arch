@@ -31,7 +31,7 @@ class RegisterUserSchema(BaseModel):
     responses={
         status.HTTP_201_CREATED: {"model": BaseModel},
         status.HTTP_409_CONFLICT: {
-            "model": AlreadyRegisteredUserSchema | AlreadyTakenUserNameSchema
+            "model": AlreadyRegisteredUserSchema | AlreadyTakenUserNameSchema,
         },
     },
     summary="Register user",
@@ -46,7 +46,7 @@ async def register_user_route(
 ) -> Response:
     try:
         result = await register_user(
-            signed_user_id=signed_user_id, user_name=request_body.user_name
+            signed_user_id=signed_user_id, user_name=request_body.user_name,
         )
     except RegisteredUserToRegisterUserError:
         response_body = (

@@ -31,13 +31,13 @@ async def test_app_from() -> None:
     provider = Provider(scope=Scope.APP)
     provider.provide(lambda: X(x=4), provides=X)
     provider.provide(lambda: [router], provides=FastAPIAppRouters)
-    provider.provide(lambda: [], provides=FastAPIAppCoroutines)
+    provider.provide(list, provides=FastAPIAppCoroutines)
     container = make_async_container(provider)
 
     app = await app_from(container)
 
     client = AsyncClient(
-        transport=ASGITransport(app=app), base_url="http://localhost"
+        transport=ASGITransport(app=app), base_url="http://localhost",
     )
     async with client:
         response = await client.get("/something")

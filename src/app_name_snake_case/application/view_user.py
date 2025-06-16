@@ -12,7 +12,7 @@ class ViewUser[SignedUserIDT, UserViewT, UserViewWithIDT]:
     transaction: Transaction
 
     async def __call__(
-        self, signed_user_id: SignedUserIDT | None
+        self, signed_user_id: SignedUserIDT | None,
     ) -> UserViewWithIDT:
         if signed_user_id is None:
             user_id = None

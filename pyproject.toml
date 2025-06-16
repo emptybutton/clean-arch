@@ -10,30 +10,32 @@ readme = "README.md"
 classifiers = ["Private :: Do Not Upload"]
 requires-python = "==3.13.*"
 dependencies = [
+    "dishka==1.6.0",
     "effectt==0.2.0",
-    "uvicorn[standard]==0.30.6",
-    "typenv==0.2.0",
-    "dishka==1.4.2",
-    "fastapi==0.115.2",
+    "in-memory-db==0.3.0",
+    "sqlalchemy==2.0.41",
+    "psycopg[binary]==3.2.9",
+    "alembic==1.16.1",
     "PyJWT==2.10.1",
-    "sqlalchemy==2.0.38",
-    "psycopg[binary]==3.2.5",
-    "alembic==1.14.1",
-    "in-memory-db==0.2.0",
+    "typenv==0.2.0",
+    "fastapi==0.115.12",
+    "uvicorn[standard]==0.34.3",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
-    "mypy[faster-cache]==1.15.0",
-    "ruff==0.9.7",
-    "pytest==8.3.4",
-    "pytest-asyncio==0.25.3",
-    "pytest-cov==6.0.0",
-    "dirty-equals==0.8.0",
-    "httpx==0.27.2",
-    "httpx-ws==0.7.0",
+    "mypy[faster-cache]==1.16.0",
+    "ruff==0.11.13",
+    "pytest==8.4.0",
+    "pytest-cov==6.1.1",
+    "pytest-asyncio==1.0.0",
+    "dirty-equals==0.9.0",
+    "httpx==0.28.1",
+    "httpx-ws==0.7.2",
 ]
-prod = []
+
+[project.urls]
+Repository = "https://github.com/emptybutton/app-name-kebab-case"
 
 [build-system]
 requires = ["hatchling"]
@@ -43,7 +45,15 @@ build-backend = "hatchling.build"
 packages = ["src/app_name_snake_case"]
 
 [project.scripts]
-app-name-kebab-case-fastapi-dev = "app_name_snake_case.main.fastapi.__main__:main"
+app-name-kebab-case-dev = "app_name_snake_case.main.fastapi.__main__:main"
+
+[tool.uv]
+add-bounds = "exact"
+
+[tool.uv.workspace]
+members = [
+    "dist",
+]
 
 [tool.mypy]
 mypy_path = "$MYPY_CONFIG_FILE_DIR/src:$MYPY_CONFIG_FILE_DIR/tests"
@@ -57,24 +67,42 @@ preview = true
 line-length = 80
 indent-width = 4
 
-[tool.ruff.lint]
-select = [
-    "ANN", "F", "W", "E", "B", "C90", "N", "UP", "YTT", "ASYNC", "PL", "RUF",
-    "Q", "RET", "SLF", "SLOT", "SIM", "TID252", "TCH", "ARG", "PTH", "ERA", "TRY",
-    "PERF", "INP", "I", "S", "FAST", "TID", "TCH", "INT"
-]
-ignore = ["N818", "RUF009", "UP018", "PLR6301", "PLR0913", "PLW0108", "TC006"]
-
 [tool.ruff.lint.isort]
 lines-after-imports = 2
 
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "EXE002",
+    "CPY001",
+    "C401",
+    "C408",
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    "D200",
+    "D201",
+    "D202",
+    "D203",
+    "D205",
+    "D401",
+    "D212",
+    "DOC201",
+    "DOC501",
+    "PLR6301",
+    "TC002",
+    "TC003",
+    "TC006",
+]
+
 [tool.ruff.lint.per-file-ignores]
-"src/app_name_snake_case/entities/*" = ["PLR2004"]
-"src/app_name_snake_case/application/*" = ["PLR0917"]
-"src/app_name_snake_case/infrastructure/adapters/*" = ["RUF029"]
-"tests/*" = ["S101", "PLR0124", "PLR0917", "S106", "C901"]
-"*/alembic/versions/*" = ["S101"]
-"__init__.py" = ["PLC0414"]
+"tests/*" = ["S101", "PT013", "PLR2004", "D400", "D415"]
+"tests/test_tgdb/test_entities/test_horizon.py" = ["D400", "D415"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

@@ -43,7 +43,7 @@ class CommonProvider(Provider):
 
     @provide(scope=Scope.REQUEST)
     async def provide_postgres_session(
-        self, engine: AsyncEngine
+        self, engine: AsyncEngine,
     ) -> AsyncIterator[AsyncSession]:
         session = AsyncSession(
             engine,
@@ -57,13 +57,13 @@ class CommonProvider(Provider):
 
     @provide(scope=Scope.APP)
     def provide_user_id_signing(
-        self, envs: Envs
+        self, envs: Envs,
     ) -> AnyOf[UserIDSigningToHS256JWT, UserIDSigning[JWT]]:
         return UserIDSigningToHS256JWT(secret=envs.jwt_secret)
 
     @provide(scope=Scope.REQUEST)
     def provide_users(
-        self, session: AsyncSession
+        self, session: AsyncSession,
     ) -> AnyOf[InPostgresUsers, Users]:
         return InPostgresUsers(session=session)
 
@@ -81,14 +81,14 @@ class CommonProvider(Provider):
 
     @provide(scope=Scope.REQUEST)
     def provide_transaction(
-        self, session: AsyncSession
+        self, session: AsyncSession,
     ) -> Transaction:
         return in_postgres_transaction(session=session)
 
     provide_user_views = provide(
         UserSchemasFromPostgres,
         provides=AnyOf[
-            UserViews[UserSchema, UserSchema | None], UserSchemasFromPostgres
+            UserViews[UserSchema, UserSchema | None], UserSchemasFromPostgres,
         ],
         scope=Scope.REQUEST,
     )
@@ -96,7 +96,7 @@ class CommonProvider(Provider):
     provide_register_user = provide(
         RegisterUser[JWT, UserSchema, UserSchema | None],
         provides=RegisterUser[str, UserSchema, UserSchema | None],
-        scope=Scope.REQUEST
+        scope=Scope.REQUEST,
     )
     provide_view_user = provide(
         ViewUser[JWT, UserSchema, UserSchema | None],

@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: ../../
-      dockerfile: deployments/dev/backend/Dockerfile
+      dockerfile: deploy/dev/backend/Dockerfile
       tags:
         - "app-name-kebab-case-backend:dev"
     container_name: app-name-kebab-case-backend
@@ -19,7 +19,12 @@ services:
     environment:
       JWT_SECRET: super-secret-jwt-secret
       POSTGRES_URL: postgresql+psycopg://root:root@postgres/root
-    command: app-name-kebab-case-fastapi-dev
+    command: app-name-kebab-case-dev
+    healthcheck:
+      test: python3 -c "from urllib.request import urlopen as f; assert f('http://backend:8000/health').status == 204"
+      start_period: 2m
+      start_interval: 0.5s
+      interval: 10s
 
   postgres:
     image: postgres:16.3-alpine3.19

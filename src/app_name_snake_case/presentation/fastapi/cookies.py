@@ -14,7 +14,7 @@ class CookieAnnotationKeeperType(type):
 
     key: str
 
-    def __new__(
+    def __new__(  # noqa: PLR0913
         cls,
         name: str,
         bases: tuple[type, ...],
@@ -41,7 +41,7 @@ class CookieAnnotationKeeperType(type):
         )
 
         type_.StrOrNoneWithLock = Annotated[
-            str | None, Depends(api_key_without_auto_error)
+            str | None, Depends(api_key_without_auto_error),
         ]  # type: ignore[assignment]
         type_.StrWithLock = Annotated[str, Depends(api_key_with_auto_error)]  # type: ignore[assignment]
 

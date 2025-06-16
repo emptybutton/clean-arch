@@ -25,5 +25,5 @@ class Time:
     def __ge__(self, time: "Time") -> bool:
         return self.datetime >= time.datetime
 
-    def map(self, next: Callable[[datetime_cls], datetime_cls]) -> "Time":
-        return Time(datetime=next(self.datetime))
+    def map(self, next_: Callable[[datetime_cls], datetime_cls]) -> "Time":
+        return Time(datetime=next_(self.datetime))

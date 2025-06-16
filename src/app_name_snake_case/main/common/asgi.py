@@ -17,7 +17,7 @@ class LazyASGIApp:
     __app: ASGIApp | None = field(default=None, init=False)
 
     async def __call__(
-        self, scope: Scope, receive: Receive, send: Send
+        self, scope: Scope, receive: Receive, send: Send,
     ) -> None:
         if self.__app is None:
             self.__app = await self.app_factory()

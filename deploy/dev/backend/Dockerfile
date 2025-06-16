@@ -9,4 +9,4 @@ ENV UV_CACHE_DIR /run/app/uv
 ENV PYTHONPATH /app/src:/app/tests
 ENV WATCHFILES_FORCE_POLLING true
 
-ENTRYPOINT ["bash", "deployments/dev/backend/entrypoint.sh"]
+ENTRYPOINT ["bash", "deploy/dev/backend/entrypoint.sh"]

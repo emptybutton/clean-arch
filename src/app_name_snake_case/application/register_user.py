@@ -38,7 +38,7 @@ class RegisterUser[SignedUserIDT, UserViewT, UserViewWithIDT]:
     user_views: UserViews[UserViewT, UserViewWithIDT]
 
     async def __call__(
-        self, signed_user_id: SignedUserIDT | None, user_name: str
+        self, signed_user_id: SignedUserIDT | None, user_name: str,
     ) -> Output[SignedUserIDT, UserViewT]:
         """
         :raises app_name_snake_case.application.register_user.RegisteredUserToRegisterUserError:
@@ -62,6 +62,6 @@ class RegisterUser[SignedUserIDT, UserViewT, UserViewWithIDT]:
             view = await self.user_views.view_of_user(just(registered_user_))
 
         signed_user_id = await self.user_id_signing.signed_user_id(
-            just(registered_user_).id
+            just(registered_user_).id,
         )
         return Output(signed_user_id=signed_user_id, user_view=view)

@@ -32,7 +32,7 @@ async def _session_session(
         yield session
 
 
-@fixture()
+@fixture
 async def session(
     _session_session: AsyncSession,
 ) -> AsyncSession:

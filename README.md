@@ -9,5 +9,5 @@ app_name_description.
 ## Развертывание для разработки
 ```bash
 git clone https://github.com/emptybutton/app-name-kebab-case.git
-docker compose -f app-name-kebab-case/deployments/dev/docker-compose.yaml up
+docker compose -f app-name-kebab-case/deploy/dev/docker-compose.yaml up
 ```

@@ -13,13 +13,13 @@ from app_name_snake_case.infrastructure.sqlalchemy import orm  # noqa: F401
 class InMemoryUsers(Users):
     db: InMemoryDb
 
-    async def user_with_id(self, id: UUID) -> User | None:
-        return self.db.subset(User).select_one(lambda user: user.id == id)
+    async def user_with_id(self, id_: UUID) -> User | None:
+        return self.db.subset(User).select_one(lambda user: user.id == id_)
 
 
 @dataclass(frozen=True)
 class InPostgresUsers(Users):
     session: AsyncSession
 
-    async def user_with_id(self, id: UUID) -> User | None:
-        return await self.session.get(User, id)
+    async def user_with_id(self, id_: UUID) -> User | None:
+        return await self.session.get(User, id_)

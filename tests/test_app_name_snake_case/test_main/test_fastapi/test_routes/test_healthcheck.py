@@ -11,4 +11,4 @@ async def test_ok(client: AsyncClient, stage: str) -> None:
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
     if stage == "body":
-        assert response.content == bytes()
+        assert response.content == b""
